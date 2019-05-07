@@ -17,8 +17,8 @@ class Spaceship
     line(width-1066,height-268,width-1066,height);
     line(width-1066,height-143,0,height-143);
     
-    line(550,500,550,800);
-    line(815,500,815,800);
-    line(815,635,width,635);
+    line(width -816,height-268,width-816,height);
+    line(width-551,height-268,width-551,height);
+    line(width-551,height-133,width,height-133);
   }
 }
