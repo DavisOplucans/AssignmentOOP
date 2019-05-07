@@ -1,5 +1,8 @@
+// The spaceship class has one function which is to display what the shipp looks like
+
 class Spaceship
 {
+  //test here
   void display()
   {
     strokeWeight(2);

@@ -4,30 +4,39 @@ class Identifier_Button
   float ypos =  height - 206;
   float center_x = 1066;
   float center_y = 584.5;
-  boolean light = false;
-  boolean dark = true;
+  // Boolean varibles test if the button is pressed
+  boolean goahead = false;
+  boolean nogo = true;
   
+  /*
+    Function of the object is when the mouse is pressed this function will be carried out
+    The values of mouseX and Y will be passed into the function and it's distance will be calculated between the button's center x,y postion using the dist() function.
+    Value will be stored in the variable 'd'. If the value of 'd' is <45 'ight' will be true and 'nogo' will be false.
+    Functions within the draw() and mousePressed() in the main program will be able to be carried out depending on the value 'goahead'.
+  */
   void clicked_i(float px, float py)
   {
     float d = dist(px, py, center_x, center_y);
     if(d < 45)
     {
-      if(dark)
+      if(nogo)
       {
-        light = true;
-        dark = false;
+        goahead = true;
+        nogo = false;
       }
-      else if(light)
+      else if(goahead)
       {
-       light = false;
-       dark = true;
+       goahead = false;
+       nogo = true;
       }
     }
   }
-  
+  /*
+    Function will display the button
+  */
   void display_i()
   {
-    if(dark)
+    if(nogo)
     {
       stroke(0, 100, 0);
       fill(34, 139, 34);

@@ -2,7 +2,7 @@ class Identifier
 {
   void display_id()
   {
-   stroke(255, 255, 0);
+   stroke(0, 0, 255);
    line(mouseX, mouseY, mouseX - 15, mouseY - 15);
    line(mouseX, mouseY, mouseX + 15, mouseY + 15);
    line(mouseX, mouseY, mouseX + 15, mouseY - 15);

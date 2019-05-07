@@ -1,38 +1,35 @@
-T_Button b1; 
-Identifier_Button b2; 
-Identifier id1;  
-Spaceship ship; 
-Target t1; 
-Radar radar; 
+T_Button b1; //object instance of the 'T_Button' class called 'b1'
+Identifier_Button b2; // Creating an object instance of the 'Identifier_Button' class called 'b2'
+Identifier id1;  // Creating an object instances of the 'Identifier' class called'id1'
+Spaceship ship; // Creating an instance of the 'Spaceship' class called 't1'
+Target t1; // Creating an instance of the 'Target' class called 't1'
+Radar radar; // Creating an instance of the 'Radar' class called 'radar'
+// Stat_Button1,2, are extended classes from the 'Stat_Button' class
 Stat_Button1 stat_button;
 Stat_Button2 stat_button2;
 
-
-PImage[] p = new PImage[6]; 
-PImage[] a = new PImage[4]; 
-
-
-
+// PImage is a built in class that will encapsulate information
+PImage[] p = new PImage[6]; // Using an array of type PImage to store five images called 'p'.Theses are images are the planet images
+PImage[] a = new PImage[4]; // The images in this array are the asteriod ones
 Planet[] planets = new Planet[6]; 
-ArrayList<Star> stars; 
+ArrayList<Star> stars; // using an Arraylist to store objects of the 'Star' class called 'stars'
 ArrayList<Asteroid> asteroids;
-float xpos = 1336 + 100; 
+float xpos = 1336 + 100;  // global variable passed to the 'asteroids' Arraylist type 'Asteriod' class when creating a new instance within the ArrayList
 
-String[] planet_names = {"Mars", "Earth", "Galcantia", "Revlet", "DeathStar", "PICKLE RICK"}; 
-float[] planet_ypos = {40, 100, 200, 250, 300, 400}; 
+String[] planet_names = {"Mars", "Earth", "Galcantia", "Revlet", "DeathStar", "PICKLE RICK"}; // A string array used to pass the name o each planet to the constructor in 'Planet
+float[] planet_ypos = {40, 100, 200, 250, 300, 400}; // An arry of type float to pass the y-axis position of the planets to the constructor in 'Planet'
 
-int removed_stars = 0; 
-int removed_asteroids = 0; 
+int removed_stars = 0; // Variable will count the number of stars that the user has deleteed/destroyed/blown up , that have been removed from the 'stars' arraylist
+int removed_asteroids = 0; // Variable will count the number of asteriods that the user has destroyed
 
-import controlP5.*;
-
-ControlP5 cp5;
+import controlP5.*; //controlP5 is a library imported to the sketch
+ControlP5 cp5; // a built in class in 'controlP5'
 int music = 0;
-
+// Using an imported library called 'Minum', 'import' will allow information from the 'minum' library to load in
 import ddf.minim.*;
-
+// A built in class in Minim called'minim'
 Minim minim;
-
+//built in class called 'AudioPlayer' which will contain the mp3 file
 AudioPlayer player;
 AudioPlayer laser;
 
@@ -40,7 +37,7 @@ void setup()
 {
   /* All measurments are in realation to the size of my screen: 1366 x 768 */
   fullScreen();
-  b1 = new T_Button(); 
+  b1 = new T_Button();  // Initiliasing 'b1' as a new 'Button' object
   b2 = new Identifier_Button();
   id1 = new Identifier();
   t1 = new Target();
@@ -48,18 +45,22 @@ void setup()
   radar = new Radar();
   stat_button = new Stat_Button1();
   stat_button2 = new Stat_Button2();
-  
-
-  
-  stars = new ArrayList<Star>(); 
+   
+  stars = new ArrayList<Star>();  // Initiliasig 'b1' as a new 'Button' object
   for(int i = 0; i < 150;  i++)
   {
-    stars.add(new Star());
+    stars.add(new Star()); // Adding 150 'Star' objects to the ArrayList 'stars'
   } 
-  
+  //Loading images
   for(int i = 0; i < planets.length; i++)
   {
+    /*
+      Images will be loaded from the same directory that has the string 'planet' at it's start and will take the value of i
+      and add that to the string followed by 'png' which will continue through the loop while i < planets.length
+    */
     p[i] = loadImage("planet"+i+".png");
+    // A new Planet object will be created and stored in the 'planets' array and will pass on a new PIMage type from the PImage array''p' to the constructor
+    // in the planet class, where it will be used in the display function
     planets[i] = new Planet(p[i], planet_names[i], planet_ypos[i]);
   }
   
@@ -75,14 +76,15 @@ void setup()
   player.loop(); 
   laser = minim.loadFile("Laser.mp3");
   
-  cp5 = new ControlP5(this); 
-  cp5.addSlider("music")
+  cp5 = new ControlP5(this);  // initialsing 'cp5' as a new ' ControlP5' object
+  cp5.addSlider("music") // addd a horizontal slider, the value of this slider will be linked to the variable music
   .setPosition(100, (height / 100) * 95)
   .setRange(0, 1); 
 }
 
 void draw()
 {
+  // when the stat_button is clicked it will go to the view_stats function and display the screen differently
   if(stat_button.clicked)
   {
     view_stats();
@@ -99,7 +101,7 @@ void draw()
     b2.display_i();
     radar.draw_radar(); 
     
-    if(b2.light)
+    if(b2.goahead)
     {
       for(int i = asteroids.size()-1; i >= 0; i--)
       {
@@ -129,7 +131,7 @@ void draw()
    
       t1.display_t();
     }
-    if(b2.light)
+    if(b2.goahead)
     {
    
       id1.display_id();
@@ -138,12 +140,12 @@ void draw()
   wave_length(); 
   fill(0,0,139);
   textSize(15);
-  text("Play music", 110, 700);
+  text("Radio Galaktica", 90, 700);
 }
 
 void mousePressed()
 {
-  if(!b2.light)
+  if(!b2.goahead)
   {
     b1.clicked_b(mouseX, mouseY);
   }
@@ -152,7 +154,7 @@ void mousePressed()
   {
     b2.clicked_i(mouseX, mouseY);
   }
-  
+  // If the boolean variable 'on' is true, the user will be able to delete stars and asteriods when clicked
   if(b1.on)
   {
     for(int i = stars.size()-1; i >= 0; i--)
@@ -176,7 +178,7 @@ void mouseClicked()
     stat_button.clicked();
   }
 }
-
+// function to draw planets
 void draw_planets()
 {
   for(int i = 0; i < planets.length; i++)
@@ -186,7 +188,7 @@ void draw_planets()
   }
 }
 
-
+ // function to draw stars
 void draw_stars()
 {
  for(int i = stars.size()-1; i >= 0; i--)
@@ -205,12 +207,12 @@ void draw_stars()
     }
   }
 }
-
+//function draws asteriods
 void draw_asteroids()
 {
  for(int i = asteroids.size()-1; i >= 0; i--)
  {
-   Asteroid a1 = asteroids.get(i); 
+   Asteroid a1 = asteroids.get(i); // An arraylist doesn't know that it is storing so we have to cast the object coming out, in this case as 'a1'
    a1.display();
    a1.move();
    if(a1.remove_a())
@@ -223,7 +225,7 @@ void draw_asteroids()
    }
   }
 }
-
+//function to draw the wave_lengths of the song when it is played
 void wave_length()
 {
   fill(0);
@@ -235,6 +237,11 @@ void wave_length()
     for(int i = 0; i < player.bufferSize() - 1; i++)
     {
       stroke(255);
+      /*
+        The map() function will map the ranges of 'x1' and 'i' together. The ranges of 'x1 is 350 and 510. 
+        The ranges of 'i' is 0 and player.bufferSize().
+        This will restrict the waves when drawn between the range of 350 and 510.
+      */
       float x1 = map(i, 0, player.bufferSize(), 350, 510);
       float x2 = map(i+1, 0, player.bufferSize(), 350, 510);
       line(x1, 645 + player.right.get(i) * 50, x2, 645 + player.right.get(i+1) * 50);
