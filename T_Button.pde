@@ -1,7 +1,7 @@
 class T_Button
 {
-  float xpos = 150;
-  float ypos =  height - 200;
+  float xpos = 425;
+  float ypos =  height - 130;
   float r = 24;
   //boolean variables to test if the button is pressed
   boolean on = false;
@@ -43,9 +43,10 @@ class T_Button
       stroke(140, 3, 3);
       fill(215, 25, 25);
     }
-    ellipse(xpos, ypos, r*2, r*2);
+    ellipse(xpos,ypos,r*4,r*4);
     textSize(15);
     fill(255, 0, 0);
-    text("WEAPONS", 115, 530);
+    text("WEAPONS", 390, 580);
+    
   }
 }

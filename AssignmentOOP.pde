@@ -225,39 +225,11 @@ void draw_asteroids()
    }
   }
 }
-//function to draw the wave_lengths of the song when it is played
-void wave_length()
-{
-  fill(0);
-  stroke(218, 112, 214);
-  rect(350, 600, 160, 90);
-  if(music == 1)
-  {
-    player.play();
-    for(int i = 0; i < player.bufferSize() - 1; i++)
-    {
-      stroke(255);
-      /*
-        The map() function will map the ranges of 'x1' and 'i' together. The ranges of 'x1 is 350 and 510. 
-        The ranges of 'i' is 0 and player.bufferSize().
-        This will restrict the waves when drawn between the range of 350 and 510.
-      */
-      float x1 = map(i, 0, player.bufferSize(), 350, 510);
-      float x2 = map(i+1, 0, player.bufferSize(), 350, 510);
-      line(x1, 645 + player.right.get(i) * 50, x2, 645 + player.right.get(i+1) * 50);
-    }
-  }
-  else
-  {
-    player.pause();
-    stroke(255);
-    strokeWeight(3);
-    line(350, 645, 510, 645);
-  }
-}
+
+
 void view_stats()
 {
-  background(95,158,160);
+  background(0);
   stat_button2.stat_button();
   stat_button2.text_display();
   fill(255);
@@ -269,4 +241,36 @@ void view_stats()
   text(removed_stars, 280, 300);
   text("Asteroids destroyed", 650, 100);
   text(removed_asteroids, 840, 300);
+}
+
+
+//function to draw the wave_lengths of the song when it is played
+void wave_length()
+{
+  fill(0);
+  stroke(218, 112, 214);
+  rect(80, 550, 160, 90);
+  if(music == 1)
+  {
+    player.play();
+    for(int i = 0; i < player.bufferSize() - 1; i++)
+    {
+      stroke(255);
+      /*
+        The map() function will map the ranges of 'x1' and 'i' together. The ranges of 'x1 is 350 and 510. 
+        The ranges of 'i' is 0 and player.bufferSize().
+        This will restrict the waves when drawn between the range of 350 and 510.
+      */
+      float x1 = map(i, 0, player.bufferSize(), 80, 240);
+      float x2 = map(i+1, 0, player.bufferSize(), 80, 240);
+      line(x1, 595 + player.right.get(i) * 50, x2, 595 + player.right.get(i+1) * 50);
+    }
+  }
+  else
+  {
+    player.pause();
+    stroke(255);
+    strokeWeight(3);
+    line(80, 595, 240, 595);
+  }
 }
